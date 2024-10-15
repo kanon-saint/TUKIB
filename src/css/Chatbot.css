@@ -29,7 +29,7 @@
 /* Container */
 
 .chatbot-container {
-	background-image: url('../assets/chatbot_bg.png');
+	background-image: url('../assets/bg1.png');
 	width: 300px;
 	height: 400px;
 	border: 1px solid #ccc;
@@ -140,7 +140,7 @@
 }
 
 .suggestion-button {
-	background-color: #007bff;
+	background-color: #d12052;
 	color: white;
 	border: none;
 	padding: 5px 10px;
@@ -151,7 +151,7 @@
 }
 
 .suggestion-button:hover {
-	background-color: #0056b3;
+	background-color: #8E1537;
 }
 
 /* Optional: Style for scrollbar */
@@ -165,10 +165,10 @@
 }
 
 .suggestions::-webkit-scrollbar-thumb {
-	background: #007bff;
+	background: #a7a7a7;
 	border-radius: 10px;
 }
 
 .suggestions::-webkit-scrollbar-thumb:hover {
-	background: #0056b3;
+	background: #6a6a6a;
 }
