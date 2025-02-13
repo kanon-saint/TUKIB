@@ -14,11 +14,12 @@ import { FaBell } from 'react-icons/fa';
 import { Line, Bar, Pie } from 'react-chartjs-2';
 // eslint-disable-next-line
 import Chart from 'chart.js/auto';
-import '../css/Variables.css';
-import '../css/AdminDashboard.css';
-import Adminpic from '../assets/adminpic.jpg';
+import '../../css/Variables.css';
+import '../../css/AdminDashboard.css';
+import Adminpic from '../../assets/adminpic.jpg';
 import Equipment from "./Equipment";
-import EventCalendar from './partials/EventCalendar';
+import Announcements from "./Announcements";
+import EventCalendar from '../partials/EventCalendar';
 
 const AdminDashboard = () => {
 	// state to manage the active section
@@ -37,6 +38,7 @@ const AdminDashboard = () => {
 			},
 		],
 	};
+
 
 	const barChartData = {
 		labels: ['Completed Requests', 'Pending Requests', 'Active Users'],
@@ -114,14 +116,23 @@ const AdminDashboard = () => {
 						className={activeSection === 'messages' ? 'active' : ''}>
 						Messages
 					</Nav.Link>
+					{/* Announcements */}
+					<Nav.Link
+    					as={Link}
+    					onClick={() => handleSidebarClick('announcements')}
+    					className={activeSection === 'announcements' ? 'active' : ''}>
+    					Announcements
+					</Nav.Link>
 
+				</Nav>
+				<div className="logout-link">
 					<Nav.Link
 						as={Link}
 						to='/login'>
 						Logout
 					</Nav.Link>
-				</Nav>
-			</aside>
+				</div>
+				</aside>
 
 			{/* Main content */}
 			<main className='main-content'>
@@ -424,6 +435,9 @@ const AdminDashboard = () => {
 						</Table>
 					</Container>
 				</section>
+				)}
+				{activeSection === 'announcements' && (
+					<Announcements />
 				)}
 			</main>
 		</div>

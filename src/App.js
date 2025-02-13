@@ -8,7 +8,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import Chatbot from './components/Chatbot';
 import Home from './components/Home';
 import Login from './components/Login';
-import AdminDashboard from './components/AdminDashboard';
+import AdminDashboard from './components/admin/AdminDashboard';
 import ClientProfile from './components/ClientProfile';
 import Service from './components/Service';
 import AboutUs from './components/AboutUs';

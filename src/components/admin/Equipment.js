@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../css/Equipment.css";
+import "../../css/Equipment.css";
 
 const Equipment = () => {
   const [categories] = useState([
