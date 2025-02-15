@@ -1,0 +1,194 @@
+.dashboard-announcements {
+    padding: 2rem;
+    background-color: #f8f9fa;
+    min-height: calc(100vh - 60px);
+  }
+  
+  .announcements-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+  }
+  
+  .announcements-header h3 {
+    color: #333;
+    font-size: 1.75rem;
+    font-weight: 500;
+    margin: 0;
+  }
+  
+  .announcements-controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  
+  .btn-create-announcement {
+    background-color: #741517;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+  
+  .btn-create-announcement:hover {
+    background-color: #8b1a1c;
+  }
+  
+  .sort-dropdown .dropdown-toggle {
+    background-color: white;
+    color: #333;
+    border: 1px solid #ddd;
+    padding: 0.5rem 1rem;
+  }
+  
+  .sort-dropdown .dropdown-toggle:hover,
+  .sort-dropdown .dropdown-toggle:focus {
+    background-color: #f8f9fa;
+    border-color: #741517;
+    color: #333;
+  }
+  
+  .announcement-create-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .announcement-create-card h4 {
+    color: #741517;
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-label {
+    color: #444;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  
+  .form-control {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 0.75rem;
+  }
+  
+  .form-control:focus {
+    border-color: #741517;
+    box-shadow: 0 0 0 2px rgba(116, 21, 23, 0.1);
+    outline: none;
+  }
+  
+  .form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  .btn-primary {
+    background-color: #741517;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    color: white;
+    font-weight: 500;
+  }
+  
+  .btn-primary:hover {
+    background-color: #8b1a1c;
+  }
+  
+  .btn-secondary {
+    background-color: #6c757d;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    color: white;
+    font-weight: 500;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #5a6268;
+  }
+  
+  .announcements-list {
+    margin-top: 2rem;
+  }
+  
+  .announcement-card {
+    background-color: white;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .announcement-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+  
+  .announcement-title {
+    color: #741517;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+  
+  .announcement-date {
+    color: #666;
+    font-size: 0.875rem;
+    margin: 0;
+  }
+  
+  .announcement-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .btn-edit {
+    background-color: #2c5282;
+    color: white;
+    border: none;
+    padding: 0.4rem 1rem;
+    font-size: 0.875rem;
+    border-radius: 4px;
+  }
+  
+  .btn-delete {
+    background-color: #e53e3e;
+    color: white;
+    border: none;
+    padding: 0.4rem 1rem;
+    font-size: 0.875rem;
+    border-radius: 4px;
+  }
+  
+  .announcement-content {
+    color: #444;
+    line-height: 1.6;
+    margin: 1rem 0;
+  }
+  
+  .announcement-image {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin: 1rem 0;
+  }
+  
+  .image-preview {
+    max-width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-top: 0.5rem;
+  }
