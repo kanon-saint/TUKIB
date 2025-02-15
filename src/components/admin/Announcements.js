@@ -1,12 +1,13 @@
 import React, { useState, useMemo } from 'react';
 import { Container, Form, Button, Card, Dropdown } from 'react-bootstrap';
+import { Pencil, Trash2 } from 'lucide-react';
 import '../../css/Announcements.css';
 
 const Announcements = () => {
   const [announcements, setAnnouncements] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [showForm, setShowForm] = useState(false);
-  const [sortBy, setSortBy] = useState('newest');
+  const [sortBy, setSortBy] = useState('newest'); // Added missing state
   const [newAnnouncement, setNewAnnouncement] = useState({
     title: '',
     content: '',
@@ -73,15 +74,11 @@ const Announcements = () => {
     setShowForm(true);
   };
 
-  const resetForm = () => {
-    setEditingId(null);
-    setNewAnnouncement({
-      title: '',
-      content: '',
-      image: null,
-      imagePreview: null
-    });
-    setShowForm(false);
+  const handleDelete = (id) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this announcement?");
+    if (confirmDelete) {
+      setAnnouncements(announcements.filter(a => a.id !== id));
+    }
   };
 
   const sortedAnnouncements = useMemo(() => {
@@ -184,7 +181,16 @@ const Announcements = () => {
                 </Button>
                 <Button 
                   className="btn-secondary"
-                  onClick={resetForm}
+                  onClick={() => {
+                    setShowForm(false);
+                    setEditingId(null);
+                    setNewAnnouncement({
+                      title: '',
+                      content: '',
+                      image: null,
+                      imagePreview: null
+                    });
+                  }}
                 >
                   Cancel
                 </Button>
@@ -193,11 +199,11 @@ const Announcements = () => {
           </Card>
         )}
 
-        <div className="announcements-list">
+        <div className="announcements-grid">
           {sortedAnnouncements.map((announcement) => (
             <Card key={announcement.id} className="announcement-card">
               <div className="announcement-header">
-                <div>
+                <div className="announcement-meta">
                   <h5 className="announcement-title">{announcement.title}</h5>
                   <p className="announcement-date">
                     Posted on {announcement.date}
@@ -205,26 +211,30 @@ const Announcements = () => {
                   </p>
                 </div>
                 <div className="announcement-actions">
-                  <Button
-                    className="btn-edit"
+                  <button
+                    className="icon-button edit"
                     onClick={() => handleEdit(announcement)}
+                    title="Edit"
                   >
-                    Edit
-                  </Button>
-                  <Button
-                    className="btn-delete"
-                    onClick={() => setAnnouncements(announcements.filter(a => a.id !== announcement.id))}
+                    <Pencil size={18} />
+                  </button>
+                  <button
+                    className="icon-button delete"
+                    onClick={() => handleDelete(announcement.id)}
+                    title="Delete"
                   >
-                    Delete
-                  </Button>
+                    <Trash2 size={18} />
+                  </button>
                 </div>
               </div>
               {announcement.imagePreview && (
-                <img
-                  src={announcement.imagePreview}
-                  alt="Announcement"
-                  className="announcement-image"
-                />
+                <div className="announcement-image-container">
+                  <img
+                    src={announcement.imagePreview}
+                    alt="Announcement"
+                    className="announcement-image"
+                  />
+                </div>
               )}
               <p className="announcement-content">{announcement.content}</p>
             </Card>
