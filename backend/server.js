@@ -1,13 +1,14 @@
-// backend/server.js
 const express = require('express');
 const cors = require('cors');
 
 // controller files
 const loginController = require('./controllers/loginController');
+const googleLoginController = require('./controllers/googleLoginController'); // Import Google Login Controller
 const eventsController = require('./controllers/eventsController');
 const usersController = require('./controllers/usersController');
 const messagesController = require('./controllers/messagesController');
 const serviceRequestsController = require('./controllers/serviceRequestsController');
+const equipmentsController = require('./controllers/equipmentsController');
 
 const app = express();
 
@@ -19,6 +20,9 @@ app.use(express.json());
 
 // Route for handling login
 app.post('/api/login', loginController.handleLogin);
+
+// Route for handling Google login
+app.post('/api/google-login', googleLoginController.googleLoginController);
 
 // Endpoint to fetch events from the database
 app.get('/api/events', eventsController.getEvents);
@@ -34,6 +38,9 @@ app.delete('/api/users/:userId', usersController.deleteUser);
 
 // Endpoint to fetch service requests
 app.get('/api/serviceRequests', serviceRequestsController.getServiceRequests);
+
+// Endpoint to fetch equipments
+app.get('/api/equipments', equipmentsController.getEquipments);
 
 // Endpoint to cancel a service request (update status to 'Cancelled')
 app.put(

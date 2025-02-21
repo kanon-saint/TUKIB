@@ -4,6 +4,8 @@ import Overview from './dashboard/Overview';
 import UserAccounts from './dashboard/UserAccounts';
 import ServiceRequests from './dashboard/ServiceRequests';
 import MessagesTable from './dashboard/Messages';
+import EquipmentsTable from './dashboard/Equipments';
+import News from './dashboard/News';
 import '../css/AdminDashboard.css';
 
 // Define columns for the users table
@@ -13,7 +15,7 @@ const Admin = () => {
     const renderContent = () => {
         switch (selectedSection) {
             case 'Overview':
-                return <Overview />; // Render the Dashboard component
+                return <Overview />; 
             case 'Service Requests':
                 return <ServiceRequests />;
             case 'Users':
@@ -21,7 +23,9 @@ const Admin = () => {
             case 'Messages':
                 return <MessagesTable />;
             case 'News':
-                return <h1>News</h1>;
+                return <News/>;
+            case 'Equipments':
+                    return <EquipmentsTable />;
             default:
                 return <h1>Welcome to the Admin Dashboard</h1>;
         }
