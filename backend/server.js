@@ -1,58 +1,58 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-
-// controller files
-const loginController = require('./controllers/loginController');
-const googleLoginController = require('./controllers/googleLoginController'); // Import Google Login Controller
-const eventsController = require('./controllers/eventsController');
-const usersController = require('./controllers/usersController');
-const messagesController = require('./controllers/messagesController');
-const serviceRequestsController = require('./controllers/serviceRequestsController');
-const equipmentsController = require('./controllers/equipmentsController');
+const multer = require('multer'); // To handle image uploads
+const path = require('path');
+const routes = require('./routes/routes');
 
 const app = express();
 
-// Use CORS middleware to allow cross-origin requests
+// Middleware
 app.use(cors());
 
-// Middleware to parse JSON request bodies
-app.use(express.json());
+// Increase the body size limit for large content and files
+app.use(express.json({ limit: '50mb' })); // Increase limit for JSON payloads
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
-// Route for handling login
-app.post('/api/login', loginController.handleLogin);
+// Serve static files from the uploads folder
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Route for handling Google login
-app.post('/api/google-login', googleLoginController.googleLoginController);
+// Multer configuration to handle file uploads
+const storage = multer.diskStorage({
+	destination: (req, file, cb) => {
+		cb(null, 'uploads/'); // Save the files in the 'uploads' folder
+	},
+	filename: (req, file, cb) => {
+		const uniqueName = `${Date.now()}-${file.originalname}`;
+		cb(null, uniqueName); // Create unique filename for the uploaded file
+	},
+});
 
-// Endpoint to fetch events from the database
-app.get('/api/events', eventsController.getEvents);
+const upload = multer({
+	storage: storage,
+	limits: { fileSize: 5 * 1024 * 1024 }, // Set a limit of 5MB for image uploads
+}).single('image');
 
-// Endpoint to fetch users from the database
-app.get('/api/users', usersController.getUsers);
+// Route to handle image uploads
+app.post('/api/news/upload_image', (req, res) => {
+	upload(req, res, function (err) {
+		if (err instanceof multer.MulterError) {
+			// Handle multer-specific errors
+			return res.status(413).json({ message: 'File too large' });
+		} else if (err) {
+			// Handle other errors
+			return res.status(500).json({ message: 'Error uploading image' });
+		}
 
-// Endpoint to add users to the database
-app.post('/api/users', usersController.createUser);
+		// Send the file path as the response
+		res.status(200).json({ data: `/uploads/${req.file.filename}` });
+	});
+});
 
-// Endpoint to delete users from the database
-app.delete('/api/users/:userId', usersController.deleteUser);
+// Use the routes defined in the routes folder
+app.use('/api', routes);
 
-// Endpoint to fetch service requests
-app.get('/api/serviceRequests', serviceRequestsController.getServiceRequests);
-
-// Endpoint to fetch equipments
-app.get('/api/equipments', equipmentsController.getEquipments);
-
-// Endpoint to cancel a service request (update status to 'Cancelled')
-app.put(
-	'/api/serviceRequests/:requestId/cancel',
-	serviceRequestsController.cancelServiceRequest
-);
-
-// Endpoint to fetch messages from the database
-app.get('/api/messages', messagesController.getMessages);
-
-// Start server on port 5000
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
 	console.log(`Server running on port ${PORT}`);
 });

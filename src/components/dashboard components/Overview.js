@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import '../../css/dashboard/Overview.css';
+import '../../css/dashboard components/Overview.css';
 
 import Card from './Card';
 import EventCalendar from '../partials/EventCalendar';
@@ -15,8 +15,8 @@ import {
   Tooltip,
   Legend,
   ArcElement,
+  Filler
 } from 'chart.js';
-import '../../css/dashboard/Overview.css'; 
 
 // Registering Chart.js components
 ChartJS.register(
@@ -24,6 +24,7 @@ CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
+  Filler,
   Title,
   Tooltip,
   Legend,
