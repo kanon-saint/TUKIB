@@ -3,6 +3,9 @@ from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import SlotSet
+from rasa_sdk.events import UserUtteranceReverted, ActiveLoop
+from rasa_sdk.forms import FormValidationAction
+from rasa_sdk.events import FollowupAction
 
 class ActionSaveServiceRequestToCSV(Action):
 
@@ -41,4 +44,75 @@ class ActionSaveServiceRequestToCSV(Action):
         # Send a message to the user confirming the request is saved
         dispatcher.utter_message(text="Your service request has been saved.")
 
+<<<<<<< Updated upstream
         return []
+=======
+            # Commit transaction
+            connection.commit()
+            dispatcher.utter_message(text="Your service request has been saved successfully.")
+
+        except Exception as e:
+            dispatcher.utter_message(text=f"An error occurred while saving your request: {str(e)}")
+
+        finally:
+            if cursor:
+                cursor.close()
+            if connection:
+                connection.close()
+
+        # Clear the slots after saving
+        return [
+            SlotSet("service", None),
+            SlotSet("first_name", None),
+            SlotSet("last_name", None),
+            SlotSet("email", None),
+            SlotSet("affiliation", None),
+            SlotSet("lab_partner", None),
+            SlotSet("facility", None),
+            SlotSet("start_date", None),
+            SlotSet("end_date", None),
+        ]
+
+class ValidateCommonNames(FormValidationAction):
+
+    def name(self) -> Text:
+        return "validate_common_names"
+
+    def validate_first_name(
+        self, slot_value: Any, dispatcher: CollectingDispatcher,
+        tracker: Tracker, domain: Dict[Text, Any]
+    ) -> Dict[Text, Any]:
+        if isinstance(slot_value, str) and slot_value.strip().isalpha():
+            return {"first_name": slot_value.strip().title()}
+        dispatcher.utter_message(text="I didn't catch your first name clearly. Could you repeat it?")
+        return {"first_name": None}
+
+    def validate_last_name(
+        self, slot_value: Any, dispatcher: CollectingDispatcher,
+        tracker: Tracker, domain: Dict[Text, Any]
+    ) -> Dict[Text, Any]:
+        if isinstance(slot_value, str) and slot_value.strip().isalpha():
+            return {"last_name": slot_value.strip().title()}
+        dispatcher.utter_message(text="I didn't catch your last name clearly. Could you repeat it?")
+        return {"last_name": None}
+
+class ActionDefaultFallback(Action):
+    def name(self) -> Text:
+        return "action_default_fallback"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        active_loop = tracker.active_loop.get("name") if tracker.active_loop else None
+
+        if active_loop:
+            dispatcher.utter_message(text="I'm sorry, I didn't understand that. Can you rephrase?")
+            return [
+                ActiveLoop(name=active_loop),
+                FollowupAction(name=active_loop)
+            ]
+
+        dispatcher.utter_message(text="I'm sorry, I didn't understand that. Can you rephrase?")
+        return [UserUtteranceReverted()]
+>>>>>>> Stashed changes

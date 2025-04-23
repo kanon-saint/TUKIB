@@ -254,7 +254,13 @@ responses:
     - text: 'When you will stop using the facility?'
 
 actions:
+<<<<<<< Updated upstream
   - action_save_service_request_to_csv
+=======
+  - action_default_fallback
+  - action_save_service_request
+  - validate_common_names
+>>>>>>> Stashed changes
 
 session_config:
   session_expiration_time: 60
